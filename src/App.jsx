@@ -2,21 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [backendData, setBackendData] = useState([{}]);
+  const [backendData, setBackendData] = useState(null);
 
   useEffect(() => {
     axios
-      .get('/weather-app')
-      .then((response) => setBackendData(response.data))
+      .get('/weather')
+      .then((response) => setBackendData(response))
       .catch((error) => console.log(error));
   }, []);
   return (
     <div>
-      {typeof backendData.users === 'undefined' ? (
-        <p>Loading...</p>
-      ) : (
-        backendData.users.map((user, i) => <p key={i}>{user}</p>)
-      )}
+      {backendData ? <p>{console.log(backendData)} </p> : <p>Loading...</p>}
     </div>
   );
 }
